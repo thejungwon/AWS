@@ -10,12 +10,14 @@ sudo apt-get --yes install nginx
 sudo apt-get --yes install upstart
 mysql -u root --password=uisaws123 < earthquake.sql
 sudo /etc/init.d/nginx start
-sudo ln -s /home/ubuntu/uis_aws/architecture0/aws_app_nginx.conf /etc/nginx/sites-enabled
-sudo ln -s /home/ubuntu/uis_aws/architecture0/aws_app.service /etc/systemd/system
 sudo easy_install pip
 sudo pip install virtualenv
 virtualenv venv
 . venv/bin/activate
 pip install -r requirements.txt
+deactivate
+python nginx_conf_maker.py
+sudo ln -s /home/ubuntu/uis_aws/architecture0/aws_app_nginx.conf /etc/nginx/sites-enabled
+sudo ln -s /home/ubuntu/uis_aws/architecture0/aws_app.service /etc/systemd/system
 sudo systemctl start aws_app
 sudo systemctl start nginx
