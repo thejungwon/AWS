@@ -25,7 +25,7 @@ app.secret_key = 'HELLO_UIS'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
 DB_HOST="localhost"
-DB_USER="uisaws"
+DB_USER="root"
 DB_PASSWORD="uisaws123"
 DB_NAME="earthquake"
 
