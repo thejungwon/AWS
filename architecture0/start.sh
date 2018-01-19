@@ -20,4 +20,4 @@ python nginx_conf_maker.py
 sudo ln -s /home/ubuntu/uis_aws/architecture0/aws_app_nginx.conf /etc/nginx/sites-enabled
 sudo ln -s /home/ubuntu/uis_aws/architecture0/aws_app.service /etc/systemd/system
 sudo systemctl start aws_app
-sudo systemctl start nginx
+sudo service nginx restart
