@@ -2,12 +2,13 @@
 sudo apt-get --yes update
 sudo apt-get --yes install build-essential python
 sudo apt-get --yes install python-setuptools
-sudo debconf-set-selections <<< 'mysql-server mysql-server/uisaws123 password uisaws123'
-sudo debconf-set-selections <<< 'mysql-server mysql-server/uisaws123 password uisaws123'
+echo "mysql-server-5.6 mysql-server/root_password password uisaws123" | sudo debconf-set-selections
+echo "mysql-server-5.6 mysql-server/root_password_again password uisaws123" | sudo debconf-set-selections
 sudo apt-get --yes install mysql-server
 sudo apt-get --yes install python-dev
 sudo apt-get --yes install nginx
 sudo apt-get --yes install upstart
+mysql -u root --password=uisaws123 < earthquake.sql
 sudo /etc/init.d/nginx start
 sudo ln -s /home/ubuntu/uis_aws/architecture0/aws_app_nginx.conf /etc/nginx/sites-enabled
 sudo ln -s /home/ubuntu/uis_aws/architecture0/aws_app.service /etc/systemd/system
