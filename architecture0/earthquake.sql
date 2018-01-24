@@ -27,7 +27,7 @@ CREATE TABLE `users` (
 
 
 INSERT INTO `users` (`id`, `user_name`, `user_email`, `user_password`) VALUES
-(1, 'Jungwon', 'uis@uis.com', '123123123');
+(1, 'Jungwon', 'uis@uis.com', 'pbkdf2:sha256:50000$ziV9GHaa$97c453aa1add6719f0a3334e7ddccad1310b8de0670aa9a1c1a22201d605e50a');
 
 ALTER TABLE `posts`
   ADD PRIMARY KEY (`id`);

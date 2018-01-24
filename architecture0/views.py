@@ -9,6 +9,7 @@ from flask import send_from_directory
 from os.path import join, dirname, realpath
 
 from werkzeug import secure_filename
+from werkzeug.security import generate_password_hash, check_password_hash
 import pymysql
 import os
 
@@ -85,7 +86,7 @@ def signup():
             result = False
         else :
             sql = "INSERT INTO `users` (`id`, `user_name`, `user_email`, `user_password`) \
-            VALUES (NULL, \'"+str(userName)+"\', \'"+str(email)+"\', \'"+str(password)+"\');"
+            VALUES (NULL, \'"+str(userName)+"\', \'"+str(email)+"\', \'"+str(generate_password_hash(password))+"\');"
             print sql
             cursor.execute(sql)
             connection.commit()
@@ -118,19 +119,19 @@ def signin():
             result = False
         else :
             sql = "SELECT * FROM `users` \
-            WHERE `user_email` = \'"+str(email)+"\' \
-            AND `user_password` = \'"+str(password)+"\'"
-            print sql
-
+            WHERE `user_email` = \'"+str(email)+"\' LIMIT 1"
             cursor.execute(sql)
-
-            sql_result = cursor.fetchone()
-
-            session['user_name'] = sql_result['user_name']
-            session['user_id'] = sql_result['id']
-            session.permanant = True
-
-            result = True
+            user = cursor.fetchone()
+            if user :
+                if check_password_hash(user['user_password'], password) :
+                    session['user_name'] = user['user_name']
+                    session['user_id'] = user['id']
+                    session.permanant = True
+                    result = True
+                else :
+                    result = False
+            else :
+                result = False
     except Exception as e :
         print e
         result = False
