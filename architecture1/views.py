@@ -25,7 +25,7 @@ app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 app.secret_key = 'HELLO_UIS'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
-DB_HOST="uisaws.cxcfg6mifqu2.eu-west-1.rds.amazonaws.com"
+DB_HOST="<YOUR_RDS_ENDPOINT>"
 DB_USER="root"
 DB_PASSWORD="uisaws123"
 DB_NAME="earthquake"
