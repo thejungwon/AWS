@@ -1,0 +1,13 @@
+[Unit]
+Description=uWSGI instance to serve aws_app
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/home/ubuntu/uis_aws/architecture1
+Environment="PATH=/home/ubuntu/uis_aws/architecture1/venv/bin"
+ExecStart=/home/ubuntu/uis_aws/architecture1/venv/bin/uwsgi --ini aws_app.ini
+
+[Install]
+WantedBy=multi-user.target
