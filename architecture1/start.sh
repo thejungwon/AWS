@@ -21,6 +21,7 @@ deactivate
 python nginx_conf_maker.py
 sudo systemctl stop aws_app
 sudo service nginx stop
+sed -i "s/<YOUR_RDS_ENDPOINT>/$1/" views.py
 sudo rm -r /etc/nginx/sites-enabled/aws_app_nginx.conf
 sudo rm -r /etc/systemd/system/aws_app.service
 sudo ln -s /home/ubuntu/uis_aws/architecture1/aws_app_nginx.conf /etc/nginx/sites-enabled
