@@ -16,6 +16,7 @@ virtualenv venv
 . venv/bin/activate
 pip install -r requirements.txt
 deactivate
+sudo chown -R www-data:www-data static/uploadedimages/
 python nginx_conf_maker.py
 sudo ln -s /home/ubuntu/uis_aws/architecture0/aws_app_nginx.conf /etc/nginx/sites-enabled
 sudo ln -s /home/ubuntu/uis_aws/architecture0/aws_app.service /etc/systemd/system

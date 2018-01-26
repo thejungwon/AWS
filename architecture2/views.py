@@ -10,6 +10,11 @@ from os.path import join, dirname, realpath
 
 from werkzeug import secure_filename
 from werkzeug.security import generate_password_hash, check_password_hash
+
+from flask_s3 import FlaskS3
+import boto
+from boto.s3.key import Key
+
 import pymysql
 import os
 
@@ -19,13 +24,24 @@ sys.setdefaultencoding('utf-8')
 
 app = Flask(__name__)
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
-app.config['STATIC_ROOT'] = "/static"
 
+AWS_ACCESS_KEY_ID = '<YOUR_ACCESS_KEY>'
+AWS_SECRET_ACCESS_KEY = '<YOUR_SECRET_ACCESS_KEY>'
+app.config['FLASKS3_BUCKET_NAME'] = 'uisaws'
+app.config['AWS_ACCESS_KEY_ID'] = AWS_ACCESS_KEY_ID
+app.config['AWS_SECRET_ACCESS_KEY'] = AWS_SECRET_ACCESS_KEY
+app.config['FLASKS3_REGION'] = '<YOUR_REGION>'
+app.config['FLASKS3_CDN_DOMAIN'] = 'https://s3.'+app.config['FLASKS3_REGION']+'.amazonaws.com'
+app.config['FLASKS3_BUCKET_DOMAIN'] = app.config['FLASKS3_CDN_DOMAIN']+'/'+app.config['FLASKS3_BUCKET_NAME']
+app.config['FLASKS3_FORCE_MIMETYPE'] = True
+s3 = FlaskS3(app)
+
+app.config['STATIC_ROOT'] = app.config['FLASKS3_BUCKET_DOMAIN']+"/static"
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 app.secret_key = 'HELLO_UIS'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
-DB_HOST="localhost"
+DB_HOST="<YOUR_RDS_ENDPOINT>"
 DB_USER="root"
 DB_PASSWORD="uisaws123"
 DB_NAME="earthquake"
@@ -175,8 +191,15 @@ def file_upload():
         file = request.files['file']
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            print(file)
-            file.save(os.path.join(APP_ROOT+app.config['STATIC_ROOT']+"/uploadedimages/", filename))
+            s3 = boto.connect_s3(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, host='s3-'+app.config['FLASKS3_REGION']+'.amazonaws.com')
+            bucket_name = app.config['FLASKS3_BUCKET_NAME']
+            bucket = s3.get_bucket(bucket_name)
+            k = Key(bucket)
+            file_contents = file.read()
+            file_path = '/static/uploadedimages/'+filename
+            k.key = file_path
+            k.set_contents_from_string(file_contents,policy='public-read')
+
             result["success"]=True
             result["url"]="/uploadedimages/"+filename
             result["path"]=app.config['STATIC_ROOT']+"/uploadedimages/"+filename

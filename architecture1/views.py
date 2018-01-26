@@ -51,23 +51,7 @@ def index():
 
     return render_template('index.html',posts=posts,userName=userName)
 
-@app.route('/post/<int:post_id>',methods=['GET'])
-def post(post_id):
-    connection = pymysql.connect(host=DB_HOST,
-                             user=DB_USER,
-                             password=DB_PASSWORD,
-                             db=DB_NAME,
-                             charset='utf8',
-                             cursorclass=pymysql.cursors.DictCursor)
-    cursor = connection.cursor()
-    sql = "SELECT * FROM `posts` \
-            LEFT JOIN `users`ON `posts`.`user_id` = `users`.`id` \
-            WHERE `posts`.`id`="+str(post_id)+" ORDER BY `posts`.`id` DESC"
-    cursor.execute(sql)
-    post = cursor.fetchone()
 
-    connection.close()
-    return render_template('post.html',post=post)
 @app.route('/signup',methods=['POST'])
 def signup():
     userName = request.form['username']
