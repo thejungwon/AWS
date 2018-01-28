@@ -20,21 +20,20 @@ import os
 from lib.redis_session import *
 
 
-
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
 app = Flask(__name__)
-app.session_interface = RedisSessionInterface(host="uisredis.nlndkg.0001.euw1.cache.amazonaws.com")
+app.session_interface = RedisSessionInterface(host="<YOUR_REDIS_ENDPOINT>")
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-AWS_ACCESS_KEY_ID = 'AKIAJ6VANNRTTLNYOAGQ'
-AWS_SECRET_ACCESS_KEY = 'o7jzSNtLoYKaYX2hiHPa2R+Nf2qQeoUYHIIZrwGh'
+AWS_ACCESS_KEY_ID = '<YOUR_ACCESS_KEY>'
+AWS_SECRET_ACCESS_KEY = '<YOUR_SECRET_ACCESS_KEY>'
 app.config['FLASKS3_BUCKET_NAME'] = 'uisaws'
 app.config['AWS_ACCESS_KEY_ID'] = AWS_ACCESS_KEY_ID
 app.config['AWS_SECRET_ACCESS_KEY'] = AWS_SECRET_ACCESS_KEY
-app.config['FLASKS3_REGION'] = 'eu-west-1'
+app.config['FLASKS3_REGION'] = '<YOUR_REGION>'
 app.config['FLASKS3_CDN_DOMAIN'] = 'https://s3.'+app.config['FLASKS3_REGION']+'.amazonaws.com'
 app.config['FLASKS3_BUCKET_DOMAIN'] = app.config['FLASKS3_CDN_DOMAIN']+'/'+app.config['FLASKS3_BUCKET_NAME']
 app.config['FLASKS3_FORCE_MIMETYPE'] = True
@@ -45,7 +44,7 @@ app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 app.secret_key = 'HELLO_UIS'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
-DB_HOST="uisaws.cxcfg6mifqu2.eu-west-1.rds.amazonaws.com"
+DB_HOST="<YOUR_RDS_ENDPOINT>"
 DB_USER="root"
 DB_PASSWORD="uisaws123"
 DB_NAME="earthquake"
