@@ -15,6 +15,10 @@ elif [ -z "$4" ]
   then
     echo "Please put your S3 region"
     exit 1
+elif [ -z "$5" ]
+  then
+    echo "Please put your REDIS endpoint"
+    exit 1
 fi
 sudo apt-get --yes update
 sudo apt-get --yes install build-essential python
@@ -30,18 +34,17 @@ virtualenv venv
 . venv/bin/activate
 pip install -r requirements.txt
 deactivate
-python nginx_conf_maker.py
 sudo systemctl stop aws_app
 sudo service nginx stop
 sed -i "s/<YOUR_RDS_ENDPOINT>/$1/" views.py
 sed -i "s/<YOUR_ACCESS_KEY>/$2/" views.py
 sed -i "s/<YOUR_SECRET_ACCESS_KEY>/$3/" views.py
 sed -i "s/<YOUR_REGION>/$4/" views.py
-sudo chown -R www-data:www-data static/uploadedimages/
+sed -i "s/<YOUR_REDISS_ENDPOINT>/$5/" views.py
 sudo rm -r /etc/nginx/sites-enabled/aws_app_nginx.conf
 sudo rm -r /etc/systemd/system/aws_app.service
-sudo ln -s /home/ubuntu/uis_aws/architecture2/aws_app_nginx.conf /etc/nginx/sites-enabled
-sudo ln -s /home/ubuntu/uis_aws/architecture2/aws_app.service /etc/systemd/system
+sudo ln -s /home/ubuntu/uis_aws/architecture6/aws_app_nginx.conf /etc/nginx/sites-enabled
+sudo ln -s /home/ubuntu/uis_aws/architecture6/aws_app.service /etc/systemd/system
 sudo systemctl daemon-reload
 sudo systemctl start aws_app
 sudo service nginx start

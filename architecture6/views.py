@@ -17,12 +17,16 @@ from boto.s3.key import Key
 
 import pymysql
 import os
+from lib.redis_session import *
+
+
 
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
 app = Flask(__name__)
+app.session_interface = RedisSessionInterface(host="uisredis.nlndkg.0001.euw1.cache.amazonaws.com")
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 AWS_ACCESS_KEY_ID = 'AKIAJ6VANNRTTLNYOAGQ'

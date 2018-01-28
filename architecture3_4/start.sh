@@ -30,18 +30,16 @@ virtualenv venv
 . venv/bin/activate
 pip install -r requirements.txt
 deactivate
-python nginx_conf_maker.py
 sudo systemctl stop aws_app
 sudo service nginx stop
 sed -i "s/<YOUR_RDS_ENDPOINT>/$1/" views.py
 sed -i "s/<YOUR_ACCESS_KEY>/$2/" views.py
 sed -i "s/<YOUR_SECRET_ACCESS_KEY>/$3/" views.py
 sed -i "s/<YOUR_REGION>/$4/" views.py
-sudo chown -R www-data:www-data static/uploadedimages/
 sudo rm -r /etc/nginx/sites-enabled/aws_app_nginx.conf
 sudo rm -r /etc/systemd/system/aws_app.service
-sudo ln -s /home/ubuntu/uis_aws/architecture2/aws_app_nginx.conf /etc/nginx/sites-enabled
-sudo ln -s /home/ubuntu/uis_aws/architecture2/aws_app.service /etc/systemd/system
+sudo ln -s /home/ubuntu/uis_aws/architecture3_4/aws_app_nginx.conf /etc/nginx/sites-enabled
+sudo ln -s /home/ubuntu/uis_aws/architecture3_4/aws_app.service /etc/systemd/system
 sudo systemctl daemon-reload
 sudo systemctl start aws_app
 sudo service nginx start
