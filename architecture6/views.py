@@ -5,11 +5,12 @@ from flask import request
 from flask import redirect
 from flask import url_for
 from flask import jsonify
-from flask import send_from_directory
+
 from os.path import join, dirname, realpath
 
 from werkzeug import secure_filename
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask import send_file
 
 from flask_s3 import FlaskS3
 import boto
@@ -18,6 +19,7 @@ from boto.s3.key import Key
 import pymysql
 import os
 from lib.redis_session import *
+
 
 
 import sys
@@ -209,6 +211,8 @@ def file_upload():
 
 
     return jsonify(result = result)
+
+
 
 def allowed_file(filename):
     return '.' in filename and \
