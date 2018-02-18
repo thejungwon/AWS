@@ -27,7 +27,12 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 app = Flask(__name__)
-app.session_interface = RedisSessionInterface(host="<YOUR_REDIS_ENDPOINT>")
+app.config['SECRET_KEY'] = '123456789012345678901234'
+app.config['SESSION_TYPE'] = 'redis'
+app.config['SESSION_REDIS'] = redis.from_url('<YOUR_REDIS_ENDPOINT>')
+sess = Session()
+sess.init_app(app)
+
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 AWS_ACCESS_KEY_ID = '<YOUR_ACCESS_KEY>'

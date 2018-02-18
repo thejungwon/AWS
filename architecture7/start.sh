@@ -40,12 +40,12 @@ pip install -r requirements.txt
 deactivate
 sudo systemctl stop aws_app
 sudo service nginx stop
-sed -i "s~<YOUR_WRITE_RDS_ENDPOINT>~$1~" views.py
-sed -i "s~<YOUR_READ_RDS_ENDPOINT>~$6~" views.py
-sed -i "s~<YOUR_ACCESS_KEY>~$2~" views.py
-sed -i "s~<YOUR_SECRET_ACCESS_KEY>~$3~" views.py
-sed -i "s~<YOUR_REGION>~$4~" views.py
-sed -i "s~<YOUR_REDIS_ENDPOINT>~$5~" views.py
+sed -i "s?<YOUR_WRITE_RDS_ENDPOINT>?$1?" views.py
+sed -i "s?<YOUR_READ_RDS_ENDPOINT>?$6?" views.py
+sed -i "s?<YOUR_ACCESS_KEY>?$2?" views.py
+sed -i "s?<YOUR_SECRET_ACCESS_KEY>?$3?" views.py
+sed -i "s?<YOUR_REGION>?$4?" views.py
+sed -i "s?<YOUR_REDIS_ENDPOINT>?$5?" views.py
 sudo rm -r /etc/nginx/sites-enabled/aws_app_nginx.conf
 sudo rm -r /etc/systemd/system/aws_app.service
 sudo ln -s /home/ubuntu/uis_aws/architecture7/aws_app_nginx.conf /etc/nginx/sites-enabled
