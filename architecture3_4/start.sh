@@ -15,6 +15,10 @@ elif [ -z "$4" ]
   then
     echo "Please put your S3 region"
     exit 1
+elif [ -z "$5" ]
+  then
+    echo "Please put your domain"
+    exit 1
 fi
 sudo apt-get --yes update
 sudo apt-get --yes install build-essential python
@@ -32,10 +36,13 @@ pip install -r requirements.txt
 deactivate
 sudo systemctl stop aws_app
 sudo service nginx stop
+
 sed -i "s?<YOUR_RDS_ENDPOINT>?$1?" views.py
 sed -i "s?<YOUR_ACCESS_KEY>?$2?" views.py
 sed -i "s?<YOUR_SECRET_ACCESS_KEY>?$3?" views.py
 sed -i "s?<YOUR_REGION>?$4?" views.py
+sed -i "s?<DOMAIN>?$5?" aws_app_nginx.conf
+
 sudo rm -r /etc/nginx/sites-enabled/aws_app_nginx.conf
 sudo rm -r /etc/systemd/system/aws_app.service
 sudo ln -s /home/ubuntu/uis_aws/architecture3_4/aws_app_nginx.conf /etc/nginx/sites-enabled
