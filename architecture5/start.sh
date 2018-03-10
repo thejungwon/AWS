@@ -15,6 +15,10 @@ elif [ -z "$4" ]
   then
     echo "Please put your S3 region"
     exit 1
+elif [ -z "$5" ]
+  then
+    echo "Please put your domain"
+    exit 1
 fi
 sudo apt-get --yes update
 sudo apt-get --yes install build-essential python
