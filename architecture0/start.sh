@@ -21,7 +21,7 @@ python nginx_conf_maker.py
 sed -i "s?WorkingDirectory=.*?WorkingDirectory=$(pwd)?" aws_app.service
 sed -i "s?Environment=.*?Environment=\"PATH=$(pwd)/venv/bin\"?" aws_app.service
 sed -i "s?ExecStart=.*?ExecStart=$(pwd)/venv/bin/uwsgi --ini aws_app.ini?" aws_app.service
-
+sudo systemctl daemon-reload
 sudo rm -r /etc/nginx/sites-enabled/aws_app_nginx.conf
 sudo rm -r /etc/systemd/system/aws_app.service
 sudo ln -s $(pwd)/aws_app_nginx.conf /etc/nginx/sites-enabled
