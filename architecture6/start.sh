@@ -43,7 +43,7 @@ sudo service nginx stop
 sed -i "s?DB_HOST=.*?DB_HOST=\"$1\"?" views.py
 sed -i "s?AWS_ACCESS_KEY_ID=.*?AWS_ACCESS_KEY_ID=\"$2\"?" views.py
 sed -i "s?AWS_SECRET_ACCESS_KEY=.*?AWS_SECRET_ACCESS_KEY=\"$3\"?" views.py
-sed -i "s?app.config['FLASKS3_REGION']=.*?app.config['FLASKS3_REGION']=\"$4\"?" views.py
+sed -i "s?REGION=.*?REGION=\"$4\"?" views.py
 sed -i "s?server_name.*?server_name $5;?" aws_app_nginx.conf
 sed -i "s?REDIS_ENDPOINT=.*?REDIS_ENDPOINT=\"$6\"?" views.py
 sudo rm -r /etc/nginx/sites-enabled/aws_app_nginx.conf
