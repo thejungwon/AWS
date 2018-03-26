@@ -29,18 +29,19 @@ sys.setdefaultencoding('utf-8')
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '123456789012345678901234'
 app.config['SESSION_TYPE'] = 'redis'
-app.config['SESSION_REDIS'] = redis.from_url('<YOUR_REDIS_ENDPOINT>')
+REDIS_ENDPOINT='<YOUR_REDIS_ENDPOINT>'
+app.config['SESSION_REDIS'] = redis.from_url(REDIS_ENDPOINT)
 sess = Session()
 sess.init_app(app)
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-AWS_ACCESS_KEY_ID = '<YOUR_ACCESS_KEY>'
-AWS_SECRET_ACCESS_KEY = '<YOUR_SECRET_ACCESS_KEY>'
+AWS_ACCESS_KEY_ID='<YOUR_ACCESS_KEY>'
+AWS_SECRET_ACCESS_KEY='<YOUR_SECRET_ACCESS_KEY>'
 app.config['FLASKS3_BUCKET_NAME'] = 'uisaws'
 app.config['AWS_ACCESS_KEY_ID'] = AWS_ACCESS_KEY_ID
 app.config['AWS_SECRET_ACCESS_KEY'] = AWS_SECRET_ACCESS_KEY
-app.config['FLASKS3_REGION'] = '<YOUR_REGION>'
+app.config['FLASKS3_REGION']='<YOUR_REGION>'
 app.config['FLASKS3_CDN_DOMAIN'] = 'https://s3.'+app.config['FLASKS3_REGION']+'.amazonaws.com'
 app.config['FLASKS3_BUCKET_DOMAIN'] = app.config['FLASKS3_CDN_DOMAIN']+'/'+app.config['FLASKS3_BUCKET_NAME']
 app.config['FLASKS3_FORCE_MIMETYPE'] = True
