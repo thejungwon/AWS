@@ -31,7 +31,8 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = '123456789012345678901234'
 app.config['SESSION_TYPE'] = 'redis'
 REDIS_ENDPOINT='<YOUR_REDIS_ENDPOINT>'
-app.config['SESSION_REDIS'] = redis.from_url(REDIS_ENDPOINT)
+pool = redis.ConnectionPool(host=REDIS_ENDPOINT, port=6379,db=0)
+app.config['SESSION_REDIS'] = redis.Redis(connection_pool=pool)
 sess = Session()
 sess.init_app(app)
 
