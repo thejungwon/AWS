@@ -16,7 +16,7 @@ sh start.sh <RDS_ENDPOINT> <ACCESS_KEY> <SECRET_KEY> <S3_REGION> <DOMAIN> <REDIS
 #!/bin/bash
 cd /home/ubuntu
 git clone https://github.com/MuchasEstrellas/AWS.git
-cd /home/ubuntu/AWS/architecture6
+cd /home/ubuntu/AWS/architecture6_7
 sh start.sh <RDS_ENDPOINT>  <ACCESS_KEY> <SECRET_KEY> <S3_REGION> <REDIS_ENDPOINT>
 ```
 
