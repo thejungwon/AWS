@@ -38,23 +38,31 @@ virtualenv venv
 . venv/bin/activate
 pip install -r requirements.txt
 deactivate
-sudo systemctl stop aws_app || true
+echo 1
+sudo systemctl stop aws_app
+echo 2
 sudo service nginx stop
+echo 3
 sudo rm -r /etc/nginx/sites-enabled/aws_app_nginx.conf
+echo 4
 sudo rm -r /etc/systemd/system/aws_app.service
+echo 5
 sed -i "s?DB_HOST=.*?DB_HOST=\"$1\"?" views.py
 sed -i "s?AWS_ACCESS_KEY_ID=.*?AWS_ACCESS_KEY_ID=\"$2\"?" views.py
 sed -i "s?AWS_SECRET_ACCESS_KEY=.*?AWS_SECRET_ACCESS_KEY=\"$3\"?" views.py
 sed -i "s?REGION=.*?REGION=\"$4\"?" views.py
 sed -i "s?server_name .*?server_name $5;?" aws_app_nginx.conf
 sed -i "s?REDIS_ENDPOINT=.*?REDIS_ENDPOINT=\"$6\"?" views.py
-
+echo 6
 
 sed -i "s?WorkingDirectory=.*?WorkingDirectory=$(pwd)?" aws_app.service
 sed -i "s?Environment=.*?Environment=\"PATH=$(pwd)/venv/bin\"?" aws_app.service
 sed -i "s?ExecStart=.*?ExecStart=$(pwd)/venv/bin/uwsgi --ini aws_app.ini?" aws_app.service
+echo 7
 sudo ln -s $(pwd)/aws_app_nginx.conf /etc/nginx/sites-enabled
-sudo ln -s $(pwd)/aws_app.service /etc/systemd/system || true
-sudo systemctl daemon-reload || true
-sudo systemctl start aws_app || true
+sudo ln -s $(pwd)/aws_app.service /etc/systemd/system
+echo 8
+sudo systemctl daemon-reload
+sudo systemctl start aws_app
+echo 9
 sudo service nginx start
