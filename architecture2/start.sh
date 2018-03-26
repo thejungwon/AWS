@@ -38,9 +38,9 @@ sed -i "s?AWS_ACCESS_KEY_ID=.*?AWS_ACCESS_KEY_ID=\"$2\"?" views.py
 sed -i "s?AWS_SECRET_ACCESS_KEY=.*?AWS_SECRET_ACCESS_KEY=\"$3\"?" views.py
 sed -i "s?app.config['FLASKS3_REGION']=.*?app.config['FLASKS3_REGION']=\"$4\"?" views.py
 
-sed -i "s?WorkingDirectory=.*?\WorkingDirectory=$(pwd)?" aws_app.service
-sed -i "s?Environment=.*?\Environment=\"PATH=$(pwd)/venv/bin\"?" aws_app.service
-sed -i "s?ExecStart=.*?\ExecStart=$(pwd)/venv/bin/uwsgi --ini aws_app.ini?" aws_app.service
+sed -i "s?WorkingDirectory=.*?WorkingDirectory=$(pwd)?" aws_app.service
+sed -i "s?Environment=.*?Environment=\"PATH=$(pwd)/venv/bin\"?" aws_app.service
+sed -i "s?ExecStart=.*?ExecStart=$(pwd)/venv/bin/uwsgi --ini aws_app.ini?" aws_app.service
 sudo chown -R www-data:www-data static/uploadedimages/
 sudo rm -r /etc/nginx/sites-enabled/aws_app_nginx.conf
 sudo rm -r /etc/systemd/system/aws_app.service
