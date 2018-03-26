@@ -1,7 +1,7 @@
 # Basic Usage of AWS
 
 # Example Architectures
-- Architecture #0(./tree/master/architecture0) : EC2
+- [Architecture #0](./tree/master/architecture0) : EC2
 - Architecture #1 : EC2 + RDS
 - Architecture #2 : EC2 + RDS + S3
 - Architecture #3 : EC2 + RDS + S3 + Route53
