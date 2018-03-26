@@ -38,9 +38,9 @@ virtualenv venv
 . venv/bin/activate
 pip install -r requirements.txt
 deactivate
+sudo systemctl daemon-reload
 sudo systemctl stop aws_app
 sudo service nginx stop
-sudo systemctl daemon-reload
 sudo rm -r /etc/nginx/sites-enabled/aws_app_nginx.conf
 sudo rm -r /etc/systemd/system/aws_app.service
 sed -i "s?DB_HOST=.*?DB_HOST=\"$1\"?" views.py
