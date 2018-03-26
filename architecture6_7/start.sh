@@ -38,8 +38,7 @@ virtualenv venv
 . venv/bin/activate
 pip install -r requirements.txt
 deactivate
-sudo systemctl daemon-reload
-sudo systemctl stop aws_app
+sudo systemctl stop aws_app || true
 sudo service nginx stop
 sudo rm -r /etc/nginx/sites-enabled/aws_app_nginx.conf
 sudo rm -r /etc/systemd/system/aws_app.service
@@ -55,7 +54,7 @@ sed -i "s?WorkingDirectory=.*?WorkingDirectory=$(pwd)?" aws_app.service
 sed -i "s?Environment=.*?Environment=\"PATH=$(pwd)/venv/bin\"?" aws_app.service
 sed -i "s?ExecStart=.*?ExecStart=$(pwd)/venv/bin/uwsgi --ini aws_app.ini?" aws_app.service
 sudo ln -s $(pwd)/aws_app_nginx.conf /etc/nginx/sites-enabled
-sudo ln -s $(pwd)/aws_app.service /etc/systemd/system
-sudo systemctl daemon-reload
-sudo systemctl start aws_app
+sudo ln -s $(pwd)/aws_app.service /etc/systemd/system || true
+sudo systemctl daemon-reload || true
+sudo systemctl start aws_app || true
 sudo service nginx start
