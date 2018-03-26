@@ -1,6 +1,7 @@
 #-*- coding utf-8 -*-
 from flask import Flask, session
 from flask import render_template
+from flask_session import Session
 from flask import request
 from flask import redirect
 from flask import url_for
