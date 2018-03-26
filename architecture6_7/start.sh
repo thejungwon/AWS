@@ -55,7 +55,6 @@ sed -i "s?ExecStart=.*?ExecStart=$(pwd)/venv/bin/uwsgi --ini aws_app.ini?" aws_a
 
 sudo ln -s $(pwd)/aws_app_nginx.conf /etc/nginx/sites-enabled
 sudo ln -s $(pwd)/aws_app.service /etc/systemd/system
-
 sudo systemctl daemon-reload
 sudo systemctl start aws_app
 sudo service nginx start
