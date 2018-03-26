@@ -13,3 +13,4 @@ sh start.sh <RDS_ENDPOINT> <ACCESS_KEY> <SECRET_KEY> <S3_REGION> <DOMAIN> <REDIS
 
 # Architecture
 ![Architecture](../images/target_architecture_6.png)
+![Architecture](../images/target_architecture_7.png)
