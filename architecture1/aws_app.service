@@ -5,9 +5,9 @@ After=network.target
 [Service]
 User=www-data
 Group=www-data
-WorkingDirectory=/home/ubuntu/uis_aws/architecture1
-Environment="PATH=/home/ubuntu/uis_aws/architecture1/venv/bin"
-ExecStart=/home/ubuntu/uis_aws/architecture1/venv/bin/uwsgi --ini aws_app.ini
+WorkingDirectory=~/AWS/architecture1
+Environment="PATH=~/AWS/architecture1/venv/bin"
+ExecStart=~/AWS/architecture1/venv/bin/uwsgi --ini aws_app.ini
 
 [Install]
 WantedBy=multi-user.target
