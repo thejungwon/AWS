@@ -19,7 +19,7 @@ from boto.s3.key import Key
 
 import pymysql
 import os
-
+import redis
 
 
 
