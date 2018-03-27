@@ -17,3 +17,5 @@
 ## Programming Resources
 - Flask, Nginx, MySQL, jQuery, Materialize CSS
 ## Reading Materials
+- [Getting started with AWS](https://www.slideshare.net/JungwonSeo2/getting-started-with-aws-92003749) : Main slides
+- [How to get AWS student credit](https://www.slideshare.net/JungwonSeo2/how-to-get-aws-student-credit-87805943) : To get $150 AWS credit
