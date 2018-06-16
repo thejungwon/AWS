@@ -15,6 +15,10 @@ elif [ -z "$4" ]
   then
     echo "Please put your S3 region"
     exit 1
+elif [ -z "$5" ]
+  then
+    echo "Please put your S3 Bucket Name"
+    exit 1
 fi
 sudo apt-get --yes update
 sudo apt-get --yes install build-essential python
@@ -37,6 +41,7 @@ sed -i "s?DB_HOST=.*?DB_HOST=\"$1\"?" views.py
 sed -i "s?AWS_ACCESS_KEY_ID=.*?AWS_ACCESS_KEY_ID=\"$2\"?" views.py
 sed -i "s?AWS_SECRET_ACCESS_KEY=.*?AWS_SECRET_ACCESS_KEY=\"$3\"?" views.py
 sed -i "s?REGION=.*?REGION=\"$4\"?" views.py
+sed -i "s?AWS_BUCKET_NAME=.*?AWS_BUCKET_NAME=\"$5\"?" views.py
 
 
 sed -i "s?WorkingDirectory=.*?WorkingDirectory=$(pwd)?" aws_app.service

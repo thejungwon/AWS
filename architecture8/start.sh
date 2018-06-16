@@ -16,14 +16,18 @@ elif [ -z "$4" ]
     echo "Please put your S3 region"
     exit 1
 elif [ -z "$5" ]
+  then
+    echo "Please put your S3 Bucket Name"
+    exit 1
+elif [ -z "$6" ]
     then
       echo "Please put your domain"
       exit 1
-elif [ -z "$6" ]
+elif [ -z "$7" ]
   then
     echo "Please put your REDIS endpoint"
     exit 1
-elif [ -z "$7" ]
+elif [ -z "$8" ]
     then
       echo "Please put your read RDS endpoint"
       exit 1
@@ -45,12 +49,13 @@ deactivate
 sudo systemctl stop aws_app
 sudo service nginx stop
 sed -i "s?DB_HOST_WRITE=.*?DB_HOST_WRITE=\"$1\"?" views.py
-sed -i "s?DB_HOST_READ=.*?DB_HOST_READ=\"$7\"?" views.py
+sed -i "s?DB_HOST_READ=.*?DB_HOST_READ=\"$8\"?" views.py
 sed -i "s?AWS_ACCESS_KEY_ID=.*?AWS_ACCESS_KEY_ID=\"$2\"?" views.py
 sed -i "s?AWS_SECRET_ACCESS_KEY=.*?AWS_SECRET_ACCESS_KEY=\"$3\"?" views.py
 sed -i "s?REGION=.*?REGION=\"$4\"?" views.py
-sed -i "s?server_name .*?server_name $5;?" aws_app_nginx.conf
-sed -i "s?REDIS_ENDPOINT=.*?REDIS_ENDPOINT=\"$6\"?" views.py
+sed -i "s?AWS_BUCKET_NAME=.*?AWS_BUCKET_NAME=\"$5\"?" views.py
+sed -i "s?server_name .*?server_name $6;?" aws_app_nginx.conf
+sed -i "s?REDIS_ENDPOINT=.*?REDIS_ENDPOINT=\"$7\"?" views.py
 sudo rm -r /etc/nginx/sites-enabled/aws_app_nginx.conf
 sudo rm -r /etc/systemd/system/aws_app.service
 sed -i "s?WorkingDirectory=.*?WorkingDirectory=$(pwd)?" aws_app.service

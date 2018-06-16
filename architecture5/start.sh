@@ -17,6 +17,10 @@ elif [ -z "$4" ]
     exit 1
 elif [ -z "$5" ]
   then
+    echo "Please put your S3 Bucket Name"
+    exit 1
+elif [ -z "$6" ]
+  then
     echo "Please put your domain"
     exit 1
 fi
@@ -40,7 +44,8 @@ sed -i "s?DB_HOST=.*?DB_HOST=\"$1\"?" views.py
 sed -i "s?AWS_ACCESS_KEY_ID=.*?AWS_ACCESS_KEY_ID=\"$2\"?" views.py
 sed -i "s?AWS_SECRET_ACCESS_KEY=.*?AWS_SECRET_ACCESS_KEY=\"$3\"?" views.py
 sed -i "s?REGION=.*?REGION=\"$4\"?" views.py
-sed -i "s?server_name .*?server_name $5;?" aws_app_nginx.conf
+sed -i "s?AWS_BUCKET_NAME=.*?AWS_BUCKET_NAME=\"$5\"?" views.py
+sed -i "s?server_name .*?server_name $6;?" aws_app_nginx.conf
 
 sed -i "s?WorkingDirectory=.*?WorkingDirectory=$(pwd)?" aws_app.service
 sed -i "s?Environment=.*?Environment=\"PATH=$(pwd)/venv/bin\"?" aws_app.service
