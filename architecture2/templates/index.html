@@ -179,7 +179,11 @@
               <p>Please leave your situation.</p>
             </div>
             <div class="card-action">
+              {% if not session.user_name %}
+              <a href="#signInModal">Write</a>
+              {% else %}
               <a href="#postingModal">Write</a>
+              {% endif %}
             </div>
           </div>
         </div>
